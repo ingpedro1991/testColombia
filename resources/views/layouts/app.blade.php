@@ -21,6 +21,26 @@
 
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <script type = "text/javascript">
+        $(document).ready(function(){
+            $('#Monto').change(function(){
+                if($('#Monto').val() != ''){
+                    $('#convert').removeAttr('disabled');
+                }else{
+                    $('#convert').attr('disabled', 'disabled');
+                }
+            })
+
+            $('#convert').on('click', function() {
+                var to = $('#De').val();
+                var from = $('#A').val();
+                var amount = $('#Monto').val();
+                $('#Resultado').val((amount * to) * from);
+            });
+        });
+    </script>
+
 </head>
 <body>
     <div id="app">
@@ -82,37 +102,5 @@
             @yield('content')
         </main>
     </div>
-    <script type = "text/javascript">
-        $('#btn_submit').click(function() {
-            var token = '{{ csrf_token() }}';
-            var to = $('#De').val();
-            var from = $('#A').val();
-            var amount = $('#Monto').val();
-            var url = "/convertAmount";
-
-            $.ajax({
-                type: "post",
-                url: url,
-                dataType: 'json',
-                data: {
-                    _token: token,
-                    to: to,
-                    from: from,
-                    amount: amount
-                },
-                success: function(data) {
-                    if(data['success'] && data['data'] != '' && data['data'] != null){
-                        $('#De').val(to);
-                        $('#A').val(from);
-                        $('#Monto').val(amount);
-                        $('#Resultado').val(data['data']);
-                    }
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-        });
-    </script>
 </body>
 </html>

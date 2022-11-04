@@ -17,22 +17,30 @@
                         <div class="row">
                             <div class="col">
                                 <label for="Monto" class="form-label">Monto</label>
-                                <input id="Monto" type="text" class="form-control" placeholder="xxx.xx" aria-label="Monto" required>
+                                <input id="Monto" type="text" class="form-control" placeholder="xxx.xx" aria-label="Monto" value="" data-cambio="" required>
                             </div>
                             <div class="col">
                                 <label for="De" class="form-label">De</label>
-                                <input id="De" type="text" class="form-control" placeholder="USD" aria-label="De" required>
+                                <select class="form-select form-control" id="De" aria-label="De">
+                                    @foreach ($prefixMon as $kde => $vde)
+                                        <option value="{{ $vde }}">{{ $kde }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col">
                                 <label for="A" class="form-label">A</label>
-                                <input id="A" type="text" class="form-control" placeholder="EUR" aria-label="A" required>
+                                <select class="form-select form-control" id="A" aria-label="A">
+                                    @foreach ($prefixMon as $ka => $va)
+                                        <option value="{{ $va }}">{{ $ka }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col">
                                 <label for="Resultado" class="form-label">Resultado</label>
-                                <input id="Resultado" type="text" class="form-control" placeholder="Resultado" aria-label="Resultado" value="" disabled>
+                                <input id="Resultado" data-cambio="" type="text" class="form-control" placeholder="Resultado" aria-label="Resultado" value="" readonly>
                             </div>
                         </div>
-                        <button type="submit" id="btn_submit" class="btn btn-success mt-3">Submit</button>
+                        <button id="convert" class="btn btn-success mt-3" disabled>Submit</button>
                     </form>
                 </div>
             </div>
